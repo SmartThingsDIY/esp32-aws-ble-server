@@ -46,7 +46,6 @@ void setup()
 
 void loop()
 {
-
   client.loop();
 
   #ifdef DEBUG

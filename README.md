@@ -94,9 +94,59 @@ In the `setup()`, initialize a serial communication at a baud rate (speed) of 11
 ```
 And call some self explanatory methods
 ```cpp
-  connectToWIFI();
-  connectToAWS();
+connectToWIFI();
+connectToAWS();
 
-  startBLEserver();
-  startAdvertising();
+startBLEserver();
+startAdvertising();
 ```
+Followed by printing another debug message. At this point, the ESP32 has started the Bluetooth server and is looking for client devices
+```cpp
+#ifdef DEBUG
+    Serial.println("Listening for new devices");
+#endif
+```
+
+### connectToWIFI()
+This function starts by setting the WiFi mode to `STA`. The Station (STA) mode is used to get the ESP32 connected to a WiFi network established by an access point, so basically it's setting up to connect to your home network.
+```cpp
+WiFi.mode(WIFI_STA);
+```
+Then, initializes the WiFi library's network settings with the credentials defined in the [secrets.h](https://github.com/MecaHumArduino/esp32-aws-ble-server/blob/master/include/secrets_copy.h) file and provides the current status.
+```cpp
+WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+```
+
+Prints a debug message indicating the operation has started
+```cpp
+#ifdef DEBUG
+    Serial.println("Connecting to Wi-Fi");
+#endif
+```
+And waits for the connection to be established while printing a "." every half a second
+```cpp
+while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+}
+```
+
+### connectToAWS()
+After the ESP32 is connected to the WiFi network, it's time to connect to AWS IoT using the certificate generated earlier ([check the video for the steps](https://www.youtube.com/watch?v=G43hLHGPqQk))
+```cpp
+// Configure WiFiClientSecure to use the AWS IoT device credentials
+net.setCACert(AWS_CERT_CA);
+net.setCertificate(AWS_CERT_CRT);
+net.setPrivateKey(AWS_CERT_PRIVATE);
+```
+
+Connect to the MQTT broker on the AWS endpoint and the certifications defined earlier, it uses the default 8883 port
+```cpp
+client.begin(AWS_IOT_ENDPOINT, 8883, net);
+```
+
+This line defines a way to handel incoming messages from AWS IoT through the MQTT Topic we subscribed to. In this instance, every time a message comes through, we call `messageHandler`
+```cpp
+client.onMessage(messageHandler);
+```
+
