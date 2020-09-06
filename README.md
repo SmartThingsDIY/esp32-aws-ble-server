@@ -13,10 +13,11 @@ This coding session is the first video of a series where I will be exploring the
 
 → ESP32 dev board I used in this tutorial: https://amzn.to/3ifzLSY
 
-Youtube Video
+Youtube Videos
 ========
 
-[![ESP32 Coding Session 01](https://img.youtube.com/vi/G43hLHGPqQk/0.jpg)](https://www.youtube.com/watch?v=G43hLHGPqQk)
+- [ESP32 Coding Session 01](https://www.youtube.com/watch?v=G43hLHGPqQk)
+- ESP32 Coding Session 02 : coming soon
 
 PART ONE
 ========
