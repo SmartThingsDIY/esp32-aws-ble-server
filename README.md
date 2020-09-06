@@ -44,3 +44,59 @@ PART TWO
 Code Walk Through
 --------------------
 
+The code starts by including the required libraries. These libraries offer features to work with WiFi, Bluetooth, Json and more
+
+```cpp
+#include <BLEDevice.h>
+#include <BLEServer.h>
+#include <BLE2902.h>
+
+#include "WiFi.h"
+#include "secrets.h"
+#include <MQTTClient.h>
+#include <ArduinoJson.h>
+#include <WiFiClientSecure.h>
+```
+
+The next line defines a few macros (Constant in other languages) we will use throughout the program:
+
+We will use later to chose when to print something for debugging
+```cpp
+#define DEBUG
+```
+Names for the pub/sub MQTT topics
+```cpp
+#define AWS_IOT_SUBSCRIBE_TOPIC "thing/esp32/sub"
+#define AWS_IOT_PUBLISH_TOPIC   "thing/esp32/pub"
+```
+
+Bluetooth service and characteristic IDs
+```cpp
+#define SERVICE_UUID        "4fafc201-1fb5-459e-8fcc-c5c9c331914b"
+#define CHARACTERISTIC_UUID "beb5483e-36e1-4688-b7f5-ea07361b26a8"
+```
+
+Then, create an instance `BLEServer` called `pServer`, an instance of `BLECharacteristic` called `pCharacteristic`, an instance of `WiFiClientSecure` called `net` and an instance of `MQTTClient` called `client`
+```cpp
+BLEServer* pServer = NULL;
+BLECharacteristic* pCharacteristic = NULL;
+
+WiFiClientSecure net = WiFiClientSecure();
+MQTTClient client = MQTTClient(256);
+```
+### setup()
+In the `setup()`, initialize a serial communication at a baud rate (speed) of 115200, but only if `debug` mode is defined (see macro above)
+
+```cpp
+#ifdef DEBUG
+    Serial.begin(115200);
+#endif
+```
+And call some self explanatory methods
+```cpp
+  connectToWIFI();
+  connectToAWS();
+
+  startBLEserver();
+  startAdvertising();
+```

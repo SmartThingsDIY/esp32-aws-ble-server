@@ -13,9 +13,7 @@
 #define AWS_IOT_SUBSCRIBE_TOPIC "thing/esp32/sub"
 #define AWS_IOT_PUBLISH_TOPIC   "thing/esp32/pub"
 
-// (promotion-type, promotion-discount, short-message)
 std::string bleAdvertisingString = "XXXXXXXXXX";
-
 bool deviceConnected    = false;
 bool oldDeviceConnected = false;
 uint16_t deviceID;
@@ -236,7 +234,6 @@ void connectToAWS()
 void messageHandler(String &topic, String &payload)
 {
   Serial.println("incoming: " + topic + " - " + payload);
-  bleAdvertisingString = "p2,30,boys night";
 }
 
 void sendStats()
