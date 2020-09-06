@@ -211,3 +211,14 @@ And finally start the server
 ```cpp
 pService->start();
 ```
+
+### startAdvertising()
+Once the BLE server has started, it's time to start advertising it, which basically means making it public and waiting for connections.
+```cpp
+BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
+pAdvertising->addServiceUUID(SERVICE_UUID);
+pAdvertising->setScanResponse(true);
+pAdvertising->setMinPreferred(0x06);  // helps w/ iPhone connections issue
+pAdvertising->setMinPreferred(0x12);
+BLEDevice::startAdvertising();
+```
