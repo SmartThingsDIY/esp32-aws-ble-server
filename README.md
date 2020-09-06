@@ -1,7 +1,8 @@
 <img align="right" src="https://github.com/MecaHumArduino/ble-server/blob/master/docs/esp32.png?raw=true" style="max-width:100%;" height="350">
 
-# ESP32 Coding Session 01
-# Connect to WiFi and send data to AWS IoT
+# ESP32 Coding Sessions
+## Connect to WiFi and send data to AWS IoT
+## Create a BLE server and interact with devices through Bluetooth
 
 
 This coding session is the first video of a series where I will be exploring the ESP32 board following capabilities:
@@ -10,7 +11,7 @@ This coding session is the first video of a series where I will be exploring the
 - Different Bluetooth abilities (Bluetooth Classic and BLE)
 - Sending / Receiving data from AWS IoT
 
-→ ESP32 dev board I used in this video: https://amzn.to/3ifzLSY
+→ ESP32 dev board I used in this tutorial: https://amzn.to/3ifzLSY
 
 Youtube Video
 ========
