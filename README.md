@@ -1,7 +1,8 @@
+<img align="right" src="https://github.com/MecaHumArduino/ble-server/blob/master/docs/esp32.png?raw=true" style="max-width:100%;" height="350">
+
 # ESP32 Coding Session 01
 # Connect to WiFi and send data to AWS IoT
 
-<img align="right" src="https://github.com/MecaHumArduino/ble-server/blob/master/docs/esp32.png?raw=true" style="max-width:100%;" height="350">
 
 This coding session is the first video of a series where I will be exploring the ESP32 board following capabilities:
 
@@ -10,6 +11,11 @@ This coding session is the first video of a series where I will be exploring the
 - Sending / Receiving data from AWS IoT
 
 → ESP32 dev board I used in this video: https://amzn.to/3ifzLSY
+
+Youtube Video
+========
+
+[![ESP32 Coding Session 01](https://img.youtube.com/vi/G43hLHGPqQk/0.jpg)](https://www.youtube.com/watch?v=G43hLHGPqQk)
 
 PART ONE
 ========
