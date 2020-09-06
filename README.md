@@ -150,3 +150,64 @@ This line defines a way to handel incoming messages from AWS IoT through the MQT
 client.onMessage(messageHandler);
 ```
 
+Print a debug message and try to establish the connection to our Thing using its `THINGNAME` while printing a "." every 100ms
+```cpp
+#ifdef DEBUG
+    Serial.println("AWS IoT: Connecting...");
+#endif
+
+while (!client.connect(THINGNAME)) {
+    Serial.print(".");
+    delay(100);
+}
+```
+
+Prints a debug message and exits if connection can not be established
+```cpp
+if (!client.connected()) {
+    Serial.println("AWS IoT: Timeout!");
+    return;
+}
+```
+
+Otherwise, if connection is successful, then subscribe to the topic defined above and prints another success debug message
+```cpp
+client.subscribe(AWS_IOT_SUBSCRIBE_TOPIC);
+
+#ifdef DEBUG
+    Serial.println("AWS IoT: Connected");
+#endif
+```
+
+### startBLEserver()
+Initialize a new BLE (BlueTooth Low Energy) server and call it `ESP32-BLE`. This server will be discoverable by smartphones or any other compatible device
+```cpp
+BLEDevice::init("ESP32-BLE");
+pServer = BLEDevice::createServer();
+```
+
+Set a function that will handle all callbacks received by the server
+```cpp
+pServer->setCallbacks(new ServerCallbacks());
+```
+
+Create a service and attach it to the server while giving it ability to read, write and notify any connected device.
+```cpp
+BLEService *pService = pServer->createService(SERVICE_UUID);
+pCharacteristic = pService->createCharacteristic(
+                                          CHARACTERISTIC_UUID,
+                                          BLECharacteristic::PROPERTY_READ   |
+                                          BLECharacteristic::PROPERTY_WRITE  |
+                                          BLECharacteristic::PROPERTY_NOTIFY
+                                       );
+```
+
+Set a function that will handle all callbacks that interact will the characteristic
+```cpp
+pCharacteristic->setCallbacks(new CharCallbacks());
+```
+
+And finally start the server
+```cpp
+pService->start();
+```
